@@ -1,4 +1,4 @@
-$base='http://localhost:49357'
+$base='http://localhost:63839'
 $html=(Invoke-WebRequest $base -UseBasicParsing).Content
 $pattern = "(?:\\./|/)?assets/[^>\\s\\u0022\\u0027]+"
 $matches = [regex]::Matches($html,$pattern) | ForEach-Object { $_.Value } | Select-Object -Unique

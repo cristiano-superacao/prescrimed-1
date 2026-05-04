@@ -34,3 +34,20 @@ Observações e dicas
 - Por segurança, o script NÃO remove arquivos remotos extras. Se precisar sincronizar removendo arquivos obsoletos, peça que eu adicione essa opção.
 - Se o seu host exigir FTPS, defina `HOSTGATOR_SECURE=true`.
 - Para automações CI, configure as mesmas variáveis de ambiente no pipeline e execute `node scripts/deploy_hostgator.mjs`.
+ 
+Opções úteis
+- `--dry-run`: lista arquivos locais que seriam enviados e, se usado com `--remote-list <file>`, mostra o que seria removido no remoto (não exige credenciais).
+- `--sync`: quando usado sem `--dry-run` remove arquivos remotos que não existam localmente (cuidado).
+- `--remote-list <file>`: arquivo de texto com paths remotos (uma linha por path) usado para simular remoções no modo `--dry-run`.
+
+Exemplos
+```powershell
+# Dry-run que lista uploads e comparará com um arquivo remoto simulado
+node scripts/deploy_hostgator.mjs --dry-run --sync --remote-list sample_remote_files.txt
+
+# Execução real e sincronizada (removerá arquivos remotos obsoletos)
+$env:HOSTGATOR_HOST='ftp.seudominio.com'
+$env:HOSTGATOR_USER='usuario_ftp'
+$env:HOSTGATOR_PASS='senha_ftp'
+node scripts/deploy_hostgator.mjs --sync
+```
