@@ -1,0 +1,10 @@
+# Normalize line endings and reduce CRLF/LF warnings
+# Let Git auto-detect text files and normalize to LF in repo
+* text=auto
+
+# Ensure Windows scripts keep CRLF in working directory
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# Common Unix scripts as LF
+*.sh text eol=lf

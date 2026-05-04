@@ -1,0 +1,21 @@
+node_modules/
+.git/
+.github/
+.env.local
+.env.*.local
+*.log
+.DS_Store
+database.sqlite
+database.sqlite-*
+
+# Docs e arquivos desnecessários no deploy
+docs/
+scripts/
+WEB/
+*.md
+!README.md
+!package.json
+!package-lock.json
+
+# Não ignore o client: necessário para build do Vite
+# Removido bloqueios que impediam inclusão de index.html e fontes do client

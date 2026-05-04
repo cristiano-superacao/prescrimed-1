@@ -1,0 +1,23 @@
+﻿# ===================================
+# Railway - Variaveis de Ambiente
+# ===================================
+# Copie e cole no Railway Dashboard -> Settings -> Variables
+
+# OBRIGATORIO: JWT Secrets (geradas automaticamente)
+JWT_SECRET=ad90395005d599a3c84c88af9e3ee9f51b5782f82229fb97fe1738fbe5decb7dfd334c470a80bb351da3ca85c2f386f480c84e70114e544f7971671f069b5866
+JWT_REFRESH_SECRET=d1e444f2ce7bd411fd07fe26af80283942b8c48bdc905fcd15dfe8a8a2be2b221741ff9a916d3e5649332b7e5ad2cb3dca036677f001f274cad7f261c5aa80b3
+
+# OBRIGATORIO: Ambiente
+NODE_ENV=production
+
+# OBRIGATORIO: Timezone Brasil
+TZ=America/Sao_Paulo
+
+# OBRIGATORIO: CORS
+ALLOWED_ORIGINS=https://prescrimed.up.railway.app
+
+# OPCIONAL: Timeout de sessao
+SESSION_TIMEOUT=8h
+
+# OBSERVACAO: DATABASE_URL e criada automaticamente pelo plugin PostgreSQL
+# Nao adicione manualmente!
