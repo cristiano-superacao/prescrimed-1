@@ -439,6 +439,21 @@ app.use(compression());
 // Morgan: logger de requisições HTTP em modo desenvolvimento
 app.use(morgan('dev'));
 
+// Garantir headers CORS mínimos em todas as respostas.
+// Isso ajuda a evitar que respostas de erro/404 entreguem *nenhum* header CORS
+// (por exemplo quando um proxy/fallback retorna HTML). Mantemos a configuração
+// específica do `cors()` para as rotas da API, mas asseguramos que TODO
+// response inclua os headers básicos para evitar bloqueios no frontend.
+app.use((req, res, next) => {
+  const origin = req.headers.origin || '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,PATCH,OPTIONS,HEAD');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Empresa-Id, x-empresa-id');
+  // Se for preflight, responda imediatamente
+  if (req.method === 'OPTIONS') return res.status(204).end();
+  next();
+});
+
 /**
  * Configuração de CORS (Cross-Origin Resource Sharing)
  * Define quais origens externas podem acessar a API

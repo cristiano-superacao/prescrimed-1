@@ -27,6 +27,18 @@ export const resolveApiUrl = ({ hostname = '', isProduction = false, explicitApi
 export const resolveApiRootUrl = ({ hostname = '', isProduction = false, explicitApiUrl = '', explicitBackendRoot = '' } = {}) => {
   const trimmedApiUrl = explicitApiUrl?.trim?.() || '';
   const trimmedBackendRoot = explicitBackendRoot?.trim?.() || '';
+  // Permite override em tempo de execução via localStorage para facilitar
+  // debugging sem rebuild. Chave: 'prescrimed.backend.root' ou 'prescrimed.api.url'
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const runtimeBackend = (window.localStorage.getItem('prescrimed.backend.root') || '').trim();
+      const runtimeApiUrl = (window.localStorage.getItem('prescrimed.api.url') || '').trim();
+      if (runtimeBackend) return runtimeBackend.replace(/\/+$/, '');
+      if (runtimeApiUrl && !runtimeApiUrl.startsWith('/')) return runtimeApiUrl.replace(/\/+$/, '').replace(/\/api\/?$/, '');
+    }
+  } catch (e) {
+    // Não falhar se localStorage estiver indisponível
+  }
   const isRailwayHost = hostname.includes('railway.app');
 
   if (trimmedApiUrl && isRelativeApiUrl(trimmedApiUrl)) {

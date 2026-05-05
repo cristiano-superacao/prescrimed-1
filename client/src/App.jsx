@@ -38,6 +38,7 @@ import Manual from './pages/Manual'; // Manual de uso do sistema
 import Layout from './components/Layout'; // Layout principal com sidebar e header
 import ProtectedRoute from './components/ProtectedRoute'; // HOC para proteger rotas que requerem autenticação
 import BackendStatusMonitor from './components/BackendStatusMonitor'; // Monitor de status de conexão com backend
+import RuntimeConfig from './components/RuntimeConfig';
 
 /**
  * Componente principal da aplicação
@@ -226,6 +227,8 @@ function App() {
         position="top-right"
         containerStyle={{ top: 16, right: 16, left: 'auto', maxWidth: 420 }}
       />
+      {/* Pequena UI para sobrescrever configuração do backend/supabase em runtime (debug) */}
+      <RuntimeConfig />
     </>
   );
 }

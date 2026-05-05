@@ -46,6 +46,34 @@ jobs:
           cat .env.production
         shell: bash
 
+      - name: Validate backend health (optional)
+        run: |
+          cd client
+          # Lê valores escritos no .env.production
+          set -o allexport
+          source .env.production || true
+          set +o allexport
+
+          HEALTH_URL=""
+          if [ -n "$VITE_API_URL" ]; then
+            HEALTH_URL="$VITE_API_URL/health"
+          elif [ -n "$VITE_BACKEND_ROOT" ]; then
+            HEALTH_URL="${VITE_BACKEND_ROOT%/}/api/health"
+          fi
+
+          if [ -n "$HEALTH_URL" ]; then
+            echo "Validating backend health at $HEALTH_URL"
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$HEALTH_URL" || true)
+            echo "HTTP status: $HTTP_CODE"
+            if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "503" ]; then
+              echo "Backend health check failed (expected 200 or 503). Aborting build to avoid deploying frontend with wrong backend." >&2
+              exit 1
+            fi
+          else
+            echo "No HEALTH_URL resolved; skipping backend validation."
+          fi
+        shell: bash
+
       - name: Build client for Pages
         run: |
           cd client
