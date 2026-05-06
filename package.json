@@ -58,6 +58,9 @@
     "db:migrate:railway": "powershell -ExecutionPolicy Bypass -File scripts/migrate-local-to-railway.ps1",
     "backfill:empresa:codigo": "node scripts/backfill-empresa-codigo.js",
     "seed:testplan": "node scripts/seed-testplan-9-companies.js",
+    "generate-seed": "node scripts/generate-seed.js",
+    "prepare-seed": "node scripts/prepare-seed-for-import.js",
+    "generate:skill:agent-customization": "node scripts/generate-skill-agent-customization.js",
     "test:testplan": "node scripts/testplan-run.js"
   },
   "engines": {
