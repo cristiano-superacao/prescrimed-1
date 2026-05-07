@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Language" content="pt-BR">
+  <meta name="language" content="Portuguese">
+  <meta name="geo.region" content="BR">
+  <meta name="geo.placename" content="Brasil">
+  <meta name="description" content="Sistema completo de gestão para casas de repouso e clínicas de fisioterapia. Prescrições, prontuários, agendamentos, estoque e muito mais.">
+  <meta name="keywords" content="prescrição médica, casa de repouso, fisioterapia, prontuário eletrônico, gestão de saúde, agendamento">
+  <meta name="author" content="Prescrimed">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prescrimed.com.br/">
+  <meta property="og:title" content="Prescrimed - Sistema de Gestão de Saúde">
+  <meta property="og:description" content="Sistema completo de gestão para casas de repouso e clínicas de fisioterapia">
+  <meta property="og:image" content="./favicon.ico">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary">
+  <meta property="twitter:url" content="https://prescrimed.com.br/">
+  <meta property="twitter:title" content="Prescrimed - Sistema de Gestão de Saúde">
+  <meta property="twitter:description" content="Sistema completo de gestão para casas de repouso e clínicas de fisioterapia">
+  <meta property="twitter:image" content="./favicon.ico">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" href="./favicon.ico">
+
+  <title>Prescrimed - Sistema de Gestão de Saúde</title>
+  <script type="module" crossorigin src="./assets/index-BRqzISCO.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/vendor-KI1TBco6.js">
+  <link rel="modulepreload" crossorigin href="./assets/ui-B6833RN-.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-DD6c89BS.css">
+</head>
+<body>
+  <div id="root"></div>
+</body>
+
+<!-- Install / Download modal (shows on first visit) -->
+<!-- Install modal (shows on first visit) - only 'Instalar' option -->
+<div id="install-modal" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div class="bg-black/60 fixed inset-0"></div>
+  <div class="relative z-50 w-full max-w-2xl bg-white rounded-xl shadow-lg overflow-hidden">
+    <div class="p-6 md:p-8">
+      <h3 class="text-2xl font-bold text-slate-900 mb-2">Instalar o Prescrimed</h3>
+      <p class="text-slate-600 mb-4">Siga o guia de instalação para preparar o ambiente de deploy (Hostgator/Render/Railway). Clique em "Instalar" para abrir as instruções detalhadas.</p>
+
+      <div class="flex flex-col items-center gap-3">
+        <a id="install-guide" href="https://github.com/cristiano-superacao/prescrimed/blob/main/scripts/DEPLOY_HOSTGATOR.md" target="_blank" rel="noopener" class="w-full md:w-1/2 text-center bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg font-semibold">Instalar</a>
+      </div>
+
+      <div class="mt-4 text-sm text-slate-500">Você pode fechar este aviso e reabrir a opção a qualquer momento clicando no botão <strong>Instalar</strong> no canto inferior direito.</div>
+    </div>
+    <button id="install-close" aria-label="Fechar" class="absolute top-3 right-3 text-slate-500 hover:text-slate-700">✕</button>
+  </div>
+</div>
+
+<!-- Persistent floating action button to re-open install modal -->
+<button id="install-fab" class="fixed bottom-4 right-4 z-40 bg-primary-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-primary-700 focus:outline-none">
+  Instalar
+</button>
+
+<script>
+  (function(){
+    try {
+      const KEY = 'prescrimed_install_prompt_shown_v1';
+      const modal = document.getElementById('install-modal');
+      const fab = document.getElementById('install-fab');
+      const close = document.getElementById('install-close');
+
+      function showModal(){
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden','false');
+      }
+      function hideModal(){
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden','true');
+      }
+
+      // Show only after the first visit: mark first-visit without prompting,
+      // and prompt once on the next visit (keeps FAB always available).
+      const SEEN_KEY = 'prescrimed_seen_v1';
+      const INSTALL_SHOWN_KEY = KEY; // 'prescrimed_install_prompt_shown_v1'
+
+      if (!localStorage.getItem(SEEN_KEY)){
+        // first visit: mark seen but do not auto-show the modal
+        localStorage.setItem(SEEN_KEY, '1');
+      } else if (!localStorage.getItem(INSTALL_SHOWN_KEY)){
+        // subsequent visit: show install prompt once
+        setTimeout(()=> showModal(), 600);
+        localStorage.setItem(INSTALL_SHOWN_KEY, '1');
+      }
+      fab.addEventListener('click', function(){ showModal(); });
+      close.addEventListener('click', function(){ hideModal(); });
+
+      // allow ESC to close
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') hideModal(); });
+    } catch (err){ console.error(err); }
+  })();
+</script>
+
+</html>
+</html>
